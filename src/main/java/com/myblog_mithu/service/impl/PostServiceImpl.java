@@ -1,6 +1,7 @@
 package com.myblog_mithu.service.impl;
 
 import com.myblog_mithu.entity.Post;
+import com.myblog_mithu.exceptions.ResourceNotFoundException;
 import com.myblog_mithu.payload.PostDTO;
 import com.myblog_mithu.repository.PostRepository;
 import com.myblog_mithu.service.PostService;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class PostServiceImpl implements PostService {
 
 
-    private PostRepository postRepository;
+    private final PostRepository postRepository;
     public PostServiceImpl(PostRepository postRepository) {
         this.postRepository = postRepository;
     }
@@ -32,4 +33,19 @@ public class PostServiceImpl implements PostService {
 
         return dto;
     }
+
+    @Override
+    public PostDTO getPostById(long id) {
+        Post post = postRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Post not found with id:" + id));
+
+        PostDTO postDTO = new PostDTO();
+        postDTO.setId(post.getId());
+        postDTO.setTitle(post.getTitle());
+        postDTO.setContent(post.getContent());
+        postDTO.setDescription(post.getDescription());
+
+        return postDTO;
+    }
+
+
 }
