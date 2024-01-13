@@ -23,12 +23,16 @@ public class PostController {
     }
 
 
+
+
+
     // http://localhost:8080/api/posts?id=1
     @GetMapping
     public ResponseEntity<PostDTO> getPostById(@RequestParam("id") long id){
         PostDTO postById = postService.getPostById(id);
-       return ResponseEntity.ok(postById);
+        return ResponseEntity.ok(postById);
     }
+
 
 
 
