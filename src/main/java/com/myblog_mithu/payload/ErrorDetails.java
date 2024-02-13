@@ -14,4 +14,6 @@ public class ErrorDetails {
     private String message;
     private Date date;
     private String url;
+
+
 }
